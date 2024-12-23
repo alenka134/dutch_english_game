@@ -128,6 +128,10 @@ nextBtn.addEventListener('click', () => {
         // Hide the timer and result section when the game ends
         clearInterval(timerInterval);  // Ensure the timer is stopped
 
+        // Hide the timer element completely
+        timerSpan.style.display = 'none';  // Hides the timer
+        timerSpan.textContent = ''; // Clears any residual content in timerSpan
+
         // Display the game over screen without the time left info
         questionDiv.textContent = "Game Over!";
         choicesDiv.innerHTML = '';
@@ -141,19 +145,33 @@ nextBtn.addEventListener('click', () => {
         const totalQuestions = shuffledPhrases.length;
         resultDiv.innerHTML += `<br>Your total number of questions answered: ${totalQuestions}`;
 
+        // Call the function to display the total play time
+        displayTotalTime();
+
         // Hide the next button after the game is over
         nextBtn.style.display = 'none';
     }
 });
-
 
 // Display total play time
 function displayTotalTime() {
     const totalElapsed = Math.floor((Date.now() - gameStartTime) / 1000);  // Get total elapsed time in seconds
     const totalMinutes = Math.floor(totalElapsed / 60);
     const totalSeconds = totalElapsed % 60;
-    resultDiv.textContent += ` Your total play time: ${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
+    resultDiv.innerHTML += `<br>Your total play time: ${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
 }
+
+// Make sure the timer starts hidden at the beginning of the game
+startBtn.addEventListener('click', () => {
+    gameStartTime = Date.now(); // Store the start time when the game begins
+    startBtn.style.display = 'none';
+    gameDiv.style.display = 'block';
+    showPhrase();
+
+    // Make sure the timer is hidden when game starts, for any re-entry
+    timerSpan.style.display = 'block'; // Ensure it's visible at the start
+    timerSpan.textContent = '30'; // Set the initial timer text (if needed)
+});
 
 // Handle entering the name
 enterBtn.addEventListener('click', () => {
