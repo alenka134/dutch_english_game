@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch-English Phrase Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Dutch-English Phrase Game</h1>
+
+<div class="name-input">
+    <label for="name">What is your name?</label>
+    <input type="text" id="name" />
+    <button id="enter-btn">Enter</button>
+</div>
+
+<button id="start-btn" style="display: none;">Start Game</button>
+
+<div class="game" style="display: none;">
+    <div class="question"></div>
+    <div class="choices"></div>
+    <div class="result"></div>
+    <div>Score: <span id="score">0</span></div>
+    <button id="next-btn" style="display: none;">Next</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
