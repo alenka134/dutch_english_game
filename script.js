@@ -9,9 +9,12 @@ const resultDiv = document.querySelector('.result');
 const scoreSpan = document.getElementById('score');
 const nextBtn = document.getElementById('next-btn');
 const nameField = document.getElementById('name');
+const timerSpan = document.getElementById('timer'); // Timer element
 
 let currentPhraseIndex = 0;
 let score = 0;
+let timerInterval;
+let timeLeft = 30; // Timer set to 30 seconds for each phrase
 
 // Phrases
 const phrases = [
@@ -76,6 +79,25 @@ function showPhrase() {
         button.addEventListener('click', () => checkAnswer(choice, button));
         choicesDiv.appendChild(button);
     });
+
+    startTimer();
+}
+
+// Start the timer
+function startTimer() {
+    timeLeft = 30;
+    timerSpan.textContent = timeLeft;
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timerSpan.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            resultDiv.textContent = 'Time is up!';
+            resultDiv.style.color = 'red';
+            nextBtn.style.display = 'inline';
+        }
+    }, 1000);
 }
 
 // Check the answer
@@ -92,6 +114,7 @@ function checkAnswer(selected) {
         resultDiv.style.fontWeight = 'bold';
         resultDiv.style.color = 'red';
     }
+    clearInterval(timerInterval); // Stop the timer when answer is given
     nextBtn.style.display = 'inline';
 }
 
