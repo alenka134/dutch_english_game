@@ -15,6 +15,7 @@ let currentPhraseIndex = 0;
 let score = 0;
 let timerInterval;
 let timeLeft = 30; // Timer set to 30 seconds for each phrase
+let gameStartTime; // Store the start time of the game
 
 // Phrases
 const phrases = [
@@ -124,12 +125,35 @@ nextBtn.addEventListener('click', () => {
     if (currentPhraseIndex < shuffledPhrases.length) {
         showPhrase();
     } else {
+        // Hide the timer and result section when the game ends
+        clearInterval(timerInterval);  // Ensure the timer is stopped
+
+        // Display the game over screen without the time left info
         questionDiv.textContent = "Game Over!";
         choicesDiv.innerHTML = '';
+
+        // Display the final score
         resultDiv.textContent = `Final Score: ${score}`;
+        resultDiv.style.fontWeight = 'bold';
+        resultDiv.style.color = '#98FB98'; // Mint greenish lemon color for score
+
+        // Add the total number of questions answered and display it on the next line
+        const totalQuestions = shuffledPhrases.length;
+        resultDiv.innerHTML += `<br>Your total number of questions answered: ${totalQuestions}`;
+
+        // Hide the next button after the game is over
         nextBtn.style.display = 'none';
     }
 });
+
+
+// Display total play time
+function displayTotalTime() {
+    const totalElapsed = Math.floor((Date.now() - gameStartTime) / 1000);  // Get total elapsed time in seconds
+    const totalMinutes = Math.floor(totalElapsed / 60);
+    const totalSeconds = totalElapsed % 60;
+    resultDiv.textContent += ` Your total play time: ${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
+}
 
 // Handle entering the name
 enterBtn.addEventListener('click', () => {
@@ -145,6 +169,7 @@ enterBtn.addEventListener('click', () => {
 
 // Start the game
 startBtn.addEventListener('click', () => {
+    gameStartTime = Date.now(); // Store the start time when the game begins
     startBtn.style.display = 'none';
     gameDiv.style.display = 'block';
     showPhrase();
