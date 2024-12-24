@@ -111,6 +111,14 @@ button:hover {
     font-size: 1.5em;
     margin: 20px 0;
 }
+.result-image {
+    position: fixed; /* Fix the image to one corner of the screen */
+    bottom: 20px; /* Distance from the bottom of the screen */
+    right: 20px; /* Distance from the right side of the screen */
+    width: 230px; /* Adjusted width for aspect ratio */
+    height: auto; /* Maintain the aspect ratio automatically */
+    z-index: 100; /* Ensure it stays on top of other elements */
+}
 
 .result.correct {
     color: #4CAF50;
@@ -119,6 +127,11 @@ button:hover {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    background-image: url('img/pass.png'); /* Add the background image */
+    background-size: cover; /* Ensure the image covers the background */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    padding: 20px; /* Adjust padding to make the image visible */
 }
 
 .result.correct::before {

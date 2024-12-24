@@ -104,17 +104,29 @@ function startTimer() {
 // Check the answer
 function checkAnswer(selected) {
     const correct = shuffledPhrases[currentPhraseIndex].english;
+    const image = document.createElement('img'); // Create the image element
+    image.className = 'result-image'; // Assign the CSS class
     if (selected === correct) {
+        // Correct answer
         resultDiv.textContent = "Correct!";
         resultDiv.style.fontWeight = 'bold';
         resultDiv.style.color = '#98FB98'; // Mint greenish lemon color
         score++;
         scoreSpan.textContent = score;
+        image.src = 'img/pass.png'; // Path to the "pass" image
     } else {
+        // Incorrect answer
         resultDiv.textContent = `Wrong! The correct answer was "${correct}".`;
         resultDiv.style.fontWeight = 'bold';
         resultDiv.style.color = 'red';
+        image.src = 'img/fail.png'; // Path to the "fail" image
     }
+ // Clear previous images
+    const existingImage = document.querySelector('.result-image');
+    if (existingImage) existingImage.remove();
+
+    // Append the new image to the body
+    document.body.appendChild(image);
     clearInterval(timerInterval); // Stop the timer when answer is given
     nextBtn.style.display = 'inline';
 }
