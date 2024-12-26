@@ -30,7 +30,7 @@ const phrases = [
     { dutch: "Waar is het station?", english: "Where is the station?" },
     { dutch: "Alsjeblieft / Alstublieft", english: "Please (informal/formal)" },
     { dutch: "Mag ik een vraag stellen?", english: "May I ask you a question?" },
-    { dutch: ["Wie ben jij?", "Hoe heet jij?", "Wat is jouw naam?"], english: "What's your name?" },
+    { dutch: ["Wie ben jij?", " Hoe heet jij?", " Wat is jouw naam?"], english: "What's your name?" },
     { dutch: "Begrijp je het?", english: "Do you understand?" },
     { dutch: "Nee, ik begrijp het niet", english: "I don’t understand." },
     { dutch: "Kan je dat herhalen?", english: "Can you repeat that?" },
