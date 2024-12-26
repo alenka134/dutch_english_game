@@ -12,6 +12,15 @@ body {
     align-items: center;
     height: 100vh;
 }
+/* Logo Styling */
+.logo {
+    position: absolute; /* Make it independent of other elements */
+    top: 10px; /* Distance from the top of the screen */
+    left: 10px; /* Distance from the left side of the screen */
+    width: 105px; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio automatically */
+    z-index: 101; /* Ensure it stays above other elements */
+}
 
 /* Heading */
 h1 {
