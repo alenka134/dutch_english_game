@@ -14,6 +14,7 @@ body {
 }
 /* Logo Styling */
 .logo {
+    background-image: url('img/logo.png'); /* Add the background image */
     position: absolute; /* Make it independent of other elements */
     top: 10px; /* Distance from the top of the screen */
     left: 10px; /* Distance from the left side of the screen */
