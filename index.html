@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dutch-English Phrase Game</title>
-    <!-- Import Google Fonts -->
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Import Font Awesome for Icons -->
+
+    <!-- Font Awesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <!-- Link to your stylesheet -->
+
+    <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<!-- Add the logo here -->
+
+<!-- Game Logo -->
 <div class="logo-container">
     <img src="img/logo.png" alt="Game Logo" class="logo">
 </div>
+
 <h1>Dutch-English Phrase Game</h1>
 
+<!-- Name Input -->
 <div class="name-input">
     <label for="name">What is your name?</label>
-    <input type="text" id="name" />
+    <input type="text" id="name">
     <button id="enter-btn">Enter</button>
 </div>
 
+<!-- Start Game Button -->
 <button id="start-btn" style="display: none;">
     <i class="fas fa-play"></i> Start Game!
 </button>
 
+<!-- Game Interface -->
 <div class="game" style="display: none;">
-    <div class="timer">Time left to answer: <span id="timer">30</span> seconds</div>
+    <div class="timer">Time left: <span id="timer">30</span> seconds</div>
     <div class="question"></div>
     <div class="choices"></div>
     <div class="result"></div>
@@ -40,4 +49,5 @@
 
 <script src="script.js"></script>
 </body>
+
 </html>

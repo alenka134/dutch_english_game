@@ -1,7 +1,7 @@
 /* General Page Styling */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #6ab7f5, #004aad); /* Background gradient */
+    background: linear-gradient(135deg, #6ab7f5, #004aad);
     color: #ffffff;
     text-align: center;
     margin: 0;
@@ -12,21 +12,21 @@ body {
     align-items: center;
     height: 100vh;
 }
+
 /* Logo Styling */
 .logo {
-    background-image: url('img/logo.png'); /* Add the background image */
-    position: absolute; /* Make it independent of other elements */
-    top: 10px; /* Distance from the top of the screen */
-    left: 10px; /* Distance from the left side of the screen */
-    width: 105px; /* Adjust the width as needed */
-    height: auto; /* Maintain the aspect ratio automatically */
-    z-index: 101; /* Ensure it stays above other elements */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 105px;
+    height: auto;
+    z-index: 101;
 }
 
 /* Heading */
 h1 {
     font-size: 3em;
-    margin: 10px 0 20px; /* Moved upwards by reducing top margin */
+    margin: 10px 0 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -53,8 +53,8 @@ button {
     font-family: 'Poppins', sans-serif;
     font-size: 1em;
     font-weight: bold;
-    color: #ffffff; /* White text */
-    background: linear-gradient(145deg, #1a73e8, #1453a8); /* 3D dark blue effect */
+    color: #ffffff;
+    background: linear-gradient(145deg, #1a73e8, #1453a8);
     border: none;
     border-radius: 10px;
     padding: 12px 20px;
@@ -65,8 +65,8 @@ button {
 
 /* Button Hover Effect */
 button:hover {
-    background: linear-gradient(145deg, #1453a8, #1a73e8); /* Inverted gradient */
-    transform: translateY(-2px); /* Pop-up effect */
+    background: linear-gradient(145deg, #1453a8, #1a73e8);
+    transform: translateY(-2px);
     box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(255, 255, 255, 0.2);
 }
 
@@ -82,7 +82,6 @@ button:hover {
 
 #start-btn i {
     font-size: 1.5em;
-    color: #ffffff;
 }
 
 /* Game Section */
@@ -91,7 +90,7 @@ button:hover {
 }
 
 .question {
-    font-size: 2em; /* Enlarge the font size */
+    font-size: 2em;
     margin: 20px 0;
 }
 
@@ -105,13 +104,13 @@ button:hover {
 
 /* Button Feedback */
 .choices button.correct {
-    background-color: #4CAF50; /* Green for correct */
+    background-color: #4CAF50;
     color: #fff;
     border: 2px solid #388E3C;
 }
 
 .choices button.incorrect {
-    background-color: #F44336; /* Red for incorrect */
+    background-color: #F44336;
     color: #fff;
     border: 2px solid #D32F2F;
 }
@@ -121,15 +120,17 @@ button:hover {
     font-size: 1.5em;
     margin: 20px 0;
 }
+
 .result-image {
-    position: fixed; /* Fix the image to one corner of the screen */
-    bottom: 20px; /* Distance from the bottom of the screen */
-    right: 20px; /* Distance from the right side of the screen */
-    width: 230px; /* Adjusted width for aspect ratio */
-    height: auto; /* Maintain the aspect ratio automatically */
-    z-index: 100; /* Ensure it stays on top of other elements */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 230px;
+    height: auto;
+    z-index: 100;
 }
 
+/* Correct Answer Feedback */
 .result.correct {
     color: #4CAF50;
     font-weight: bold;
@@ -137,18 +138,19 @@ button:hover {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-image: url('img/pass.png'); /* Add the background image */
-    background-size: cover; /* Ensure the image covers the background */
-    background-position: center center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    padding: 20px; /* Adjust padding to make the image visible */
+    background-image: url('img/pass.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
 }
 
 .result.correct::before {
-    content: "✔"; /* Green checkmark */
+    content: "✔";
     font-size: 1.5em;
 }
 
+/* Incorrect Answer Feedback */
 .result.incorrect {
     color: #F44336;
     font-weight: bold;
@@ -159,6 +161,6 @@ button:hover {
 }
 
 .result.incorrect::before {
-    content: "✖"; /* Red cross */
+    content: "✖";
     font-size: 1.5em;
 }
