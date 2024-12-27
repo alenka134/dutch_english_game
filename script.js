@@ -10,6 +10,7 @@ const scoreSpan = document.getElementById('score');
 const nextBtn = document.getElementById('next-btn');
 const nameField = document.getElementById('name');
 const timerSpan = document.getElementById('timer');
+const barFill = document.getElementById("bar-fill");
 
 let currentPhraseIndex = 0;
 let score = 0;
@@ -18,44 +19,31 @@ let timeLeft = 30;
 let gameStartTime;
 let phrases = [];
 
+// Fetch phrases from data.json
 fetch('data.json')
   .then(response => response.json())
   .then(data => {
-    phrases = data.phrases;
-    const shuffledPhrases = shuffle([...phrases]);
+    phrases = shuffle([...data.phrases]);
+    showPhrase();
 
-    function showPhrase() {
-      resultDiv.textContent = '';
-      nextBtn.style.display = 'none';
-
-      const phrase = shuffledPhrases[currentPhraseIndex];
-      questionDiv.textContent = `Translate this phrase: "${phrase.dutch}"`;
-
-      const choices = [phrase.english];
-      while (choices.length < 4) {
-        const randomPhrase = shuffledPhrases[Math.floor(Math.random() * shuffledPhrases.length)].english;
-        if (!choices.includes(randomPhrase)) choices.push(randomPhrase);
-      }
-
-      choices.sort(() => Math.random() - 0.5);
-      choicesDiv.innerHTML = '';
-      choices.forEach(choice => {
-        const button = document.createElement('button');
-        button.textContent = choice;
-        button.addEventListener('click', () => checkAnswer(choice));
-        choicesDiv.appendChild(button);
-      });
-
-      startTimer();
-    }
-
+    // Start the timer
     function startTimer() {
-      timeLeft = 30;
+      const timerDuration = 30;
+      timeLeft = timerDuration;
       timerSpan.textContent = timeLeft;
+
+      clearInterval(timerInterval); // Ensure the timer is reset
+      barFill.style.width = '100%'; // Reset progress bar to 100%
 
       timerInterval = setInterval(() => {
         timeLeft--;
         timerSpan.textContent = timeLeft;
+
+        // Update progress bar
+        const progress = (timeLeft / timerDuration) * 100;
+        barFill.style.width = `${progress}%`;
+        updateProgressBarColor(progress);
+
         if (timeLeft <= 0) {
           clearInterval(timerInterval);
           resultDiv.textContent = 'Time is up!';
@@ -65,19 +53,72 @@ fetch('data.json')
       }, 1000);
     }
 
+    // Update progress bar color based on time left
+    function updateProgressBarColor(progress) {
+      if (progress > 50) {
+        barFill.style.background = "linear-gradient(to right, #003366, #0066cc)";
+      } else if (progress > 25) {
+        barFill.style.background = "linear-gradient(to right, #0066cc, #3399ff)";
+      } else {
+        barFill.style.background = "linear-gradient(to right, #3399ff, #66ccff)";
+      }
+    }
+
+    // Display the current phrase and choices
+    function showPhrase() {
+      resultDiv.textContent = '';
+      nextBtn.style.display = 'none';
+
+      const phrase = phrases[currentPhraseIndex];
+      questionDiv.textContent = `Translate this phrase: "${phrase.dutch}"`;
+
+      const choices = generateChoices(phrase);
+      renderChoices(choices);
+
+      startTimer();
+    }
+
+    // Generate random choices for the user
+    function generateChoices(phrase) {
+      const choices = [phrase.english];
+      while (choices.length < 4) {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)].english;
+        if (!choices.includes(randomPhrase)) choices.push(randomPhrase);
+      }
+      return choices.sort(() => Math.random() - 0.5);
+    }
+
+    // Render choices as buttons
+    function renderChoices(choices) {
+      choicesDiv.innerHTML = '';
+      choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.textContent = choice;
+        button.addEventListener('click', () => checkAnswer(choice));
+        choicesDiv.appendChild(button);
+      });
+    }
+
+    // Check the answer and display the result
     function checkAnswer(selected) {
-      const correct = shuffledPhrases[currentPhraseIndex].english;
+      const correctAnswer = phrases[currentPhraseIndex].english;
+      displayResult(selected === correctAnswer, correctAnswer);
+      clearInterval(timerInterval); // Stop timer when answer is selected
+      nextBtn.style.display = 'inline';
+    }
+
+    // Display result after answer selection
+    function displayResult(isCorrect, correctAnswer) {
       const image = document.createElement('img');
       image.className = 'result-image';
-
-      if (selected === correct) {
+      if (isCorrect) {
         resultDiv.textContent = 'Correct!';
         resultDiv.style.color = '#98FB98';
         score++;
         scoreSpan.textContent = score;
         image.src = 'img/pass.png';
       } else {
-        resultDiv.textContent = `Wrong! The correct answer was "${correct}".`;
+        resultDiv.textContent = `Wrong! The correct answer was "${correctAnswer}".`;
         resultDiv.style.color = 'red';
         image.src = 'img/fail.png';
       }
@@ -85,20 +126,19 @@ fetch('data.json')
       const existingImage = document.querySelector('.result-image');
       if (existingImage) existingImage.remove();
       document.body.appendChild(image);
-
-      clearInterval(timerInterval);
-      nextBtn.style.display = 'inline';
     }
 
+    // Handle next button click to move to the next phrase or end the game
     nextBtn.addEventListener('click', () => {
       currentPhraseIndex++;
-      if (currentPhraseIndex < shuffledPhrases.length) {
+      if (currentPhraseIndex < phrases.length) {
         showPhrase();
       } else {
         endGame();
       }
     });
 
+    // End the game and display final score
     function endGame() {
       clearInterval(timerInterval);
       timerSpan.style.display = 'none';
@@ -107,13 +147,14 @@ fetch('data.json')
       resultDiv.textContent = `Final Score: ${score}`;
       resultDiv.style.color = '#98FB98';
 
-      const totalQuestions = shuffledPhrases.length;
+      const totalQuestions = phrases.length;
       resultDiv.innerHTML += `<br>Your total number of questions answered: ${totalQuestions}`;
       displayTotalTime();
 
       nextBtn.style.display = 'none';
     }
 
+    // Display total time elapsed
     function displayTotalTime() {
       const totalElapsed = Math.floor((Date.now() - gameStartTime) / 1000);
       const totalMinutes = Math.floor(totalElapsed / 60);
@@ -121,6 +162,7 @@ fetch('data.json')
       resultDiv.innerHTML += `<br>Your total play time: ${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
     }
 
+    // Start game when the start button is clicked
     startBtn.addEventListener('click', () => {
       gameStartTime = Date.now();
       startBtn.style.display = 'none';
@@ -128,6 +170,7 @@ fetch('data.json')
       showPhrase();
     });
 
+    // Handle name entry and start game button visibility
     enterBtn.addEventListener('click', () => {
       const name = nameField.value.trim();
       if (name) {
@@ -143,6 +186,7 @@ fetch('data.json')
     console.error('Error loading the data file:', error);
   });
 
+// Shuffle function to randomize the phrases array
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
