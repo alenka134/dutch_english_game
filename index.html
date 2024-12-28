@@ -28,7 +28,7 @@
 
 <h1>Dutch-English Phrase Game</h1>
 
-<!-- Name Input -->
+<!-- Name Input Section -->
 <div class="name-input">
     <label for="name">What is your name?</label>
     <input type="text" id="name">
@@ -42,6 +42,7 @@
 
 <!-- Game Interface -->
 <div class="game" style="display: none;">
+    <!-- Timer -->
     <div class="timer">
         Time left: <span id="timer">30</span> seconds
     </div>
@@ -53,14 +54,28 @@
         </div>
     </div>
 
+    <!-- Question and Choices -->
     <div class="question"></div>
     <div class="choices"></div>
+
+    <!-- Result -->
     <div class="result"></div>
+
+    <!-- Score -->
     <div>Score: <span id="score">0</span></div>
+
+    <!-- Hear Phrase Button -->
+    <button id="hear-phrase-btn">
+        <i class="fas fa-volume-up"></i> Hear Phrase
+    </button>
+
+    <!-- Next Button -->
     <button id="next-btn" style="display: none;">Next</button>
 </div>
 
+<!-- External Script -->
 <script src="script.js"></script>
+
 </body>
 
 </html>

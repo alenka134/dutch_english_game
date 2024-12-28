@@ -25,203 +25,227 @@ fetch('data.json')
   .then(data => {
     phrases = shuffle([...data.phrases]);
     showPhrase();
-
-    // Start the timer
-    function startTimer() {
-      const timerDuration = 30;
-      timeLeft = timerDuration;
-      timerSpan.textContent = timeLeft;
-
-      clearInterval(timerInterval); // Ensure the timer is reset
-      barFill.style.width = '100%'; // Reset progress bar to 100%
-
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        timerSpan.textContent = timeLeft;
-
-        // Update progress bar
-        const progress = (timeLeft / timerDuration) * 100;
-        barFill.style.width = `${progress}%`;
-        updateProgressBarColor(progress);
-
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          resultDiv.textContent = 'Time is up!';
-          resultDiv.style.color = 'red';
-          nextBtn.style.display = 'inline';
-
-          // Display fail.png when time is up
-          const image = document.createElement('img');
-          image.src = 'img/fail.png';
-          image.className = 'result-image';
-
-          const existingImage = document.querySelector('.result-image');
-          if (existingImage) existingImage.remove();
-          document.body.appendChild(image);
-        }
-      }, 1000);
-    }
-
-    // Update progress bar color based on time left
-    function updateProgressBarColor(progress) {
-      if (progress > 50) {
-        barFill.style.background = "linear-gradient(to right, #003366, #0066cc)";
-      } else if (progress > 25) {
-        barFill.style.background = "linear-gradient(to right, #0066cc, #3399ff)";
-      } else {
-        barFill.style.background = "linear-gradient(to right, #3399ff, #66ccff)";
-      }
-    }
-
-    // Display the current phrase and choices
-    function showPhrase() {
-      resultDiv.textContent = '';
-      nextBtn.style.display = 'none';
-
-      const phrase = phrases[currentPhraseIndex];
-      questionDiv.textContent = `Translate this phrase: "${phrase.dutch}"`;
-
-      const choices = generateChoices(phrase);
-      renderChoices(choices);
-
-      startTimer();
-    }
-
-    // Generate random choices for the user
-    function generateChoices(phrase) {
-      const choices = [phrase.english];
-      while (choices.length < 4) {
-        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)].english;
-        if (!choices.includes(randomPhrase)) choices.push(randomPhrase);
-      }
-      return choices.sort(() => Math.random() - 0.5);
-    }
-
-    // Render choices as buttons
-    function renderChoices(choices) {
-      choicesDiv.innerHTML = '';
-      choices.forEach(choice => {
-        const button = document.createElement('button');
-        button.textContent = choice;
-        button.addEventListener('click', () => checkAnswer(choice));
-        choicesDiv.appendChild(button);
-      });
-    }
-
-    // Check the answer and display the result
-    function checkAnswer(selected) {
-      const correctAnswer = phrases[currentPhraseIndex].english;
-      displayResult(selected === correctAnswer, correctAnswer);
-      clearInterval(timerInterval); // Stop timer when answer is selected
-      nextBtn.style.display = 'inline';
-    }
-
-    // Display result after answer selection
-    function displayResult(isCorrect, correctAnswer) {
-      const image = document.createElement('img');
-      image.className = 'result-image';
-      if (isCorrect) {
-        resultDiv.textContent = 'Correct!';
-        resultDiv.style.color = '#98FB98';
-        score++;
-        scoreSpan.textContent = score;
-        image.src = 'img/pass.png';
-
-      } else {
-        resultDiv.textContent = `Wrong! The correct answer was "${correctAnswer}".`;
-        resultDiv.style.color = 'red';
-        image.src = 'img/fail.png';
-      }
-
-      const existingImage = document.querySelector('.result-image');
-      if (existingImage) existingImage.remove();
-      document.body.appendChild(image);
-    }
-
-    // Handle next button click to move to the next phrase or end the game
-    nextBtn.addEventListener('click', () => {
-      currentPhraseIndex++;
-      if (currentPhraseIndex < phrases.length) {
-        showPhrase();
-      } else {
-        endGame();
-      }
-    });
-
-    // End the game and display final score
-   function endGame() {
-     clearInterval(timerInterval);
-
-     // Hide the timer container and progress bar when the game ends
-     const timerDiv = document.querySelector('.timer');  // Select the timer container (Time left: ...)
-     if (timerDiv) {
-       timerDiv.style.display = 'none'; // Hide the timer container
-     }
-
-     barFill.style.display = 'none';   // Hide the progress bar
-
-     // Display final game over text
-     questionDiv.textContent = 'Game Over!';
-     choicesDiv.innerHTML = ''; // Clear any remaining choices
-     resultDiv.textContent = `Final Score: ${score}`; // Display the final score
-     resultDiv.style.color = '#98FB98'; // Set a green color for the text
-
-     const totalQuestions = phrases.length;
-     resultDiv.innerHTML += `<br>Your total number of questions answered: ${totalQuestions}`;
-     displayTotalTime(); // Adds the total playtime to the results
-
-     nextBtn.style.display = 'none'; // Hide the "Next" button
-
-     // Display the final image (dino.png)
-     const image = document.createElement('img');
-     image.src = 'img/dino.png';
-     image.className = 'result-image';
-
-     // Replace any existing result image
-     const existingImage = document.querySelector('.result-image');
-     if (existingImage) existingImage.remove();
-     document.body.appendChild(image);
-   }
-
-
-
-    // Display total time elapsed
-    function displayTotalTime() {
-      const totalElapsed = Math.floor((Date.now() - gameStartTime) / 1000);
-      const totalMinutes = Math.floor(totalElapsed / 60);
-      const totalSeconds = totalElapsed % 60;
-      resultDiv.innerHTML += `<br>Your total play time: ${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
-    }
-
-    // Start game when the start button is clicked
-    startBtn.addEventListener('click', () => {
-      gameStartTime = Date.now();
-      startBtn.style.display = 'none';
-      gameDiv.style.display = 'block';
-      showPhrase();
-    });
-
-    // Handle name entry and start game button visibility
-    enterBtn.addEventListener('click', () => {
-      const name = nameField.value.trim();
-      if (name) {
-        alert(`Welcome, ${name}! Click "Start Game" to begin.`);
-        nameInputDiv.style.display = 'none';
-        startBtn.style.display = 'block';
-      } else {
-        alert('Please enter your name.');
-      }
-    });
+    startTimer();
   })
-  .catch(error => {
-    console.error('Error loading the data file:', error);
-  });
+  .catch(error => console.error('Error loading the data file:', error));
 
-// Shuffle function to randomize the phrases array
+// Start Timer
+function startTimer() {
+  const timerDuration = 30;
+  timeLeft = timerDuration;
+  timerSpan.textContent = timeLeft;
+  barFill.style.width = '100%';
+
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerSpan.textContent = timeLeft;
+    updateProgressBarColor((timeLeft / timerDuration) * 100);
+    barFill.style.width = `${(timeLeft / timerDuration) * 100}%`;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      handleTimeout();
+    }
+  }, 1000);
+}
+
+// Handle Timeout (when timer reaches zero)
+function handleTimeout() {
+  resultDiv.textContent = 'Time is up!';
+  resultDiv.style.color = 'red';
+  nextBtn.style.display = 'inline';
+
+  // Show the fail image for timeout
+  const image = createResultImage('img/fail.png');
+  resultDiv.appendChild(image); // Append the fail image
+
+  nextBtn.disabled = false; // Enable the next button
+}
+
+// Update Progress Bar Color
+function updateProgressBarColor(progress) {
+  const color = progress > 50 ? '#003366' : progress > 25 ? '#0066cc' : '#3399ff';
+  barFill.style.background = `linear-gradient(to right, ${color}, #66ccff)`;
+}
+
+// Display Phrase and Choices
+function showPhrase() {
+  resultDiv.textContent = '';
+  nextBtn.style.display = 'none';
+
+  const phrase = phrases[currentPhraseIndex];
+  questionDiv.textContent = `Translate this phrase: "${phrase.dutch}"`;
+
+  const choices = generateChoices(phrase);
+  renderChoices(choices);
+
+  startTimer();
+}
+
+// Generate Choices for multiple choice answers
+function generateChoices(phrase) {
+  const choices = [phrase.english];
+  while (choices.length < 4) {
+    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)].english;
+    if (!choices.includes(randomPhrase)) choices.push(randomPhrase);
+  }
+  return choices.sort(() => Math.random() - 0.5);
+}
+
+// Render Choices as buttons
+function renderChoices(choices) {
+  choicesDiv.innerHTML = ''; // Clear previous choices
+  choices.forEach(choice => {
+    const button = document.createElement('button');
+    button.textContent = choice;
+    button.addEventListener('click', () => checkAnswer(choice));
+    choicesDiv.appendChild(button);
+  });
+}
+
+// Check Answer after selecting a choice
+function checkAnswer(selected) {
+  const correctAnswer = phrases[currentPhraseIndex].english;
+  const isCorrect = selected === correctAnswer;
+  displayResult(isCorrect, correctAnswer);
+
+  clearInterval(timerInterval);
+  nextBtn.style.display = 'inline';
+}
+// Display Result with image (pass or fail)
+function displayResult(isCorrect, correctAnswer) {
+  // Clear any previous result content
+  resultDiv.innerHTML = '';
+
+  // Create the image element for pass or fail
+  const image = createResultImage(isCorrect ? 'img/pass.png' : 'img/fail.png');
+
+  // Check if image was loaded properly
+  image.onload = function() {
+    // Image loaded successfully
+    console.log('Image loaded successfully');
+    resultDiv.appendChild(image); // Append the result image after it's loaded
+  };
+
+  image.onerror = function() {
+    // Handle image loading error
+    console.error('Error loading image:', image.src);
+  };
+
+  // Show result text after image
+  resultDiv.textContent = isCorrect ? 'Correct!' : `Wrong! The correct answer was "${correctAnswer}".`;
+  resultDiv.style.color = isCorrect ? '#98FB98' : 'red';
+
+  // Update score if the answer is correct
+  if (isCorrect) {
+    score++;
+    scoreSpan.textContent = score;
+  }
+}
+
+// Create Result Image
+function createResultImage(src) {
+  const image = document.createElement('img');
+  image.className = 'result-image';
+  image.src = src;  // Set image source dynamically
+  image.alt = 'Result Image';
+  return image;
+}
+
+
+
+// Handle Next Button
+nextBtn.addEventListener('click', () => {
+  currentPhraseIndex++;
+  if (currentPhraseIndex < phrases.length) {
+    showPhrase();
+  } else {
+    endGame();
+  }
+});
+
+// End Game
+function endGame() {
+  clearInterval(timerInterval);
+  hideGameUI();
+
+  questionDiv.textContent = 'Game Over!';
+  resultDiv.textContent = `Final Score: ${score}`;
+  resultDiv.style.color = '#98FB98';
+
+  const totalQuestions = phrases.length;
+  resultDiv.innerHTML += `<br>Your total number of questions answered: ${totalQuestions}`;
+  displayTotalTime();
+
+  nextBtn.style.display = 'none';
+
+  // Show "Dino" image for Game Over
+  const image = createResultImage('img/dino.png');
+  resultDiv.appendChild(image); // Append to resultDiv instead of body
+
+  // Hide the "Hear Phrase" button on game over
+  const hearPhraseBtn = document.getElementById('hear-phrase-btn');
+  hearPhraseBtn.style.display = 'none';  // Hide the button
+}
+
+
+// Hide Game UI Elements
+function hideGameUI() {
+  document.querySelector('.timer').style.display = 'none';
+  barFill.style.display = 'none';
+}
+
+// Display Total Play Time
+function displayTotalTime() {
+  const totalElapsed = Math.floor((Date.now() - gameStartTime) / 1000);
+  const totalMinutes = Math.floor(totalElapsed / 60);
+  const totalSeconds = totalElapsed % 60;
+  resultDiv.innerHTML += `<br>Your total play time: ${totalMinutes}:${totalSeconds < 10 ? '0' + totalSeconds : totalSeconds}`;
+}
+
+// Start the Game
+startBtn.addEventListener('click', () => {
+  gameStartTime = Date.now();
+  startBtn.style.display = 'none';
+  gameDiv.style.display = 'block';
+  showPhrase();
+});
+
+// Handle Name Entry
+enterBtn.addEventListener('click', () => {
+  const name = nameField.value.trim();
+  if (name) {
+    alert(`Welcome, ${name}! Click "Start Game" to begin.`);
+    nameInputDiv.style.display = 'none';
+    startBtn.style.display = 'block';
+  } else {
+    alert('Please enter your name.');
+  }
+});
+
+// Shuffle Array Function
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+// Add event listener for the "Hear Phrase" button
+const hearPhraseBtn = document.getElementById('hear-phrase-btn');
+hearPhraseBtn.addEventListener('click', () => {
+  const phrase = phrases[currentPhraseIndex];
+  playPhrase(phrase.dutch); // Play Dutch phrase
+});
+
+// Function to Play Phrase Using SpeechSynthesis API
+function playPhrase(phrase) {
+  const utterance = new SpeechSynthesisUtterance(phrase);
+  utterance.lang = 'nl-NL'; // Dutch language
+  utterance.rate = 0.8;      // Speed of speech
+  utterance.pitch = 1;       // Pitch of the voice
+
+  speechSynthesis.speak(utterance); // Speak the phrase
 }
