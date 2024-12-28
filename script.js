@@ -149,29 +149,41 @@ fetch('data.json')
     });
 
     // End the game and display final score
-    function endGame() {
-      clearInterval(timerInterval);
-      timerSpan.style.display = 'none';
-      questionDiv.textContent = 'Game Over!';
-      choicesDiv.innerHTML = '';
-      resultDiv.textContent = `Final Score: ${score}`;
-      resultDiv.style.color = '#98FB98';
+   function endGame() {
+     clearInterval(timerInterval);
 
-      const totalQuestions = phrases.length;
-      resultDiv.innerHTML += `<br>Your total number of questions answered: ${totalQuestions}`;
-      displayTotalTime();
+     // Hide the timer container and progress bar when the game ends
+     const timerDiv = document.querySelector('.timer');  // Select the timer container (Time left: ...)
+     if (timerDiv) {
+       timerDiv.style.display = 'none'; // Hide the timer container
+     }
 
-      nextBtn.style.display = 'none';
+     barFill.style.display = 'none';   // Hide the progress bar
 
-      // Display dino.png at the end of the game
-      const image = document.createElement('img');
-      image.src = 'img/dino.png';
-      image.className = 'result-image';
+     // Display final game over text
+     questionDiv.textContent = 'Game Over!';
+     choicesDiv.innerHTML = ''; // Clear any remaining choices
+     resultDiv.textContent = `Final Score: ${score}`; // Display the final score
+     resultDiv.style.color = '#98FB98'; // Set a green color for the text
 
-      const existingImage = document.querySelector('.result-image');
-      if (existingImage) existingImage.remove();
-      document.body.appendChild(image);
-    }
+     const totalQuestions = phrases.length;
+     resultDiv.innerHTML += `<br>Your total number of questions answered: ${totalQuestions}`;
+     displayTotalTime(); // Adds the total playtime to the results
+
+     nextBtn.style.display = 'none'; // Hide the "Next" button
+
+     // Display the final image (dino.png)
+     const image = document.createElement('img');
+     image.src = 'img/dino.png';
+     image.className = 'result-image';
+
+     // Replace any existing result image
+     const existingImage = document.querySelector('.result-image');
+     if (existingImage) existingImage.remove();
+     document.body.appendChild(image);
+   }
+
+
 
     // Display total time elapsed
     function displayTotalTime() {

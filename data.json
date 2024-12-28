@@ -22,6 +22,9 @@
     { "dutch": "Mag ik je wat vragen?", "english": "Can I ask you something?" },
     { "dutch": "Ik spreek een beetje Nederlands", "english": "I speak a little Dutch" },
     { "dutch": "En jij?", "english": "And you?" },
+    { "dutch": "Ik heb een goede dag", "english": "I'm having a good day" },
+    { "dutch": "Hoe laat is het?", "english": "What time is it?" },
+    { "dutch": "Welke dag is het vandaag?", "english": "What day is it today?" },
     { "dutch": "Met mij gaat het (heel) goed, dankjewel", "english": "I'm feeling good, thank you" }
   ]
 }
