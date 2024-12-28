@@ -49,6 +49,15 @@ fetch('data.json')
           resultDiv.textContent = 'Time is up!';
           resultDiv.style.color = 'red';
           nextBtn.style.display = 'inline';
+
+          // Display fail.png when time is up
+          const image = document.createElement('img');
+          image.src = 'img/fail.png';
+          image.className = 'result-image';
+
+          const existingImage = document.querySelector('.result-image');
+          if (existingImage) existingImage.remove();
+          document.body.appendChild(image);
         }
       }, 1000);
     }
@@ -117,6 +126,7 @@ fetch('data.json')
         score++;
         scoreSpan.textContent = score;
         image.src = 'img/pass.png';
+
       } else {
         resultDiv.textContent = `Wrong! The correct answer was "${correctAnswer}".`;
         resultDiv.style.color = 'red';
@@ -152,6 +162,15 @@ fetch('data.json')
       displayTotalTime();
 
       nextBtn.style.display = 'none';
+
+      // Display dino.png at the end of the game
+      const image = document.createElement('img');
+      image.src = 'img/dino.png';
+      image.className = 'result-image';
+
+      const existingImage = document.querySelector('.result-image');
+      if (existingImage) existingImage.remove();
+      document.body.appendChild(image);
     }
 
     // Display total time elapsed
