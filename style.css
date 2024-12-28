@@ -63,7 +63,6 @@ button {
     transition: all 0.3s ease-in-out;
 }
 
-/* Button Hover Effect */
 button:hover {
     background: linear-gradient(145deg, #1453a8, #1a73e8);
     transform: translateY(-2px);
@@ -102,6 +101,28 @@ button:hover {
     cursor: pointer;
 }
 
+/* Hear Phrase Button */
+#hear-phrase-btn {
+    padding: 12px 30px;
+    background: linear-gradient(145deg, #4f9a94, #47a9a0);
+    color: white;
+    border: none;
+    border-radius: 50px; /* Fully rounded */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Button Hover Effect */
+#hear-phrase-btn:hover {
+    background: linear-gradient(145deg, #47a9a0, #4f9a94); /* Reverse gradient on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.3);
+}
+
+
 /* Button Feedback */
 .choices button.correct {
     background-color: #4CAF50;
@@ -121,6 +142,7 @@ button:hover {
     margin: 20px 0;
 }
 
+/* Result Image */
 .result-image {
     position: fixed;
     bottom: 20px;
