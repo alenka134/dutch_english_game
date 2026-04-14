@@ -1,3 +1,8 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# IDE / OS noise
+/.idea/
+*.iml
+.DS_Store

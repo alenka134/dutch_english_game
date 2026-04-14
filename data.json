@@ -1,30 +1,48 @@
 {
-  "phrases": [
-    { "dutch": "Goedemorgen", "english": "Good morning" },
-    { "dutch": "Hoe gaat het met u?", "english": "How are you?" },
-    { "dutch": "Fijn om te horen", "english": "Happy to hear" },
-    { "dutch": "Het gaat wel", "english": "I'm okay, so-so" },
-    { "dutch": "Met mij gaat het niet goed", "english": "I'm not feeling good" },
-    { "dutch": "Met mij gaat het slecht", "english": "I'm feeling really bad" },
-    { "dutch": "Vervelend om te horen", "english": "Sorry to hear / I feel for you" },
-    { "dutch": "Dankjewel/Dankuwel", "english": "Thank you (informal/formal)" },
-    { "dutch": "Waar is het station?", "english": "Where is the station?" },
-    { "dutch": "Alsjeblieft / Alstublieft", "english": "Please (informal/formal)" },
-    { "dutch": "Mag ik een vraag stellen?", "english": "May I ask you a question?" },
-    { "dutch": ["Wie ben jij?", " Hoe heet jij?", " Wat is jouw naam?"], "english": "What's your name?" },
-    { "dutch": "Begrijp je het?", "english": "Do you understand?" },
-    { "dutch": "Nee, ik begrijp het niet", "english": "I don’t understand." },
-    { "dutch": "Kan je dat herhalen?", "english": "Can you repeat that?" },
-    { "dutch": "Kan je langzaam praten?", "english": "Can you talk slowly?" },
-    { "dutch": "Wat zeg je?", "english": "What do you say?" },
-    { "dutch": "Ik heb een vraag", "english": "I have a question" },
-    { "dutch": "Ik heb geen vraag", "english": "I don't have a question" },
-    { "dutch": "Mag ik je wat vragen?", "english": "Can I ask you something?" },
-    { "dutch": "Ik spreek een beetje Nederlands", "english": "I speak a little Dutch" },
-    { "dutch": "En jij?", "english": "And you?" },
-    { "dutch": "Ik heb een goede dag", "english": "I'm having a good day" },
-    { "dutch": "Hoe laat is het?", "english": "What time is it?" },
-    { "dutch": "Welke dag is het vandaag?", "english": "What day is it today?" },
-    { "dutch": "Met mij gaat het (heel) goed, dankjewel", "english": "I'm feeling good, thank you" }
-  ]
+  "categories": {
+    "simple_phrases": [
+      { "dutch": "Goedemorgen", "english": "Good morning" },
+      { "dutch": "Hoe gaat het met u?", "english": "How are you?" },
+      { "dutch": "Fijn om te horen", "english": "Happy to hear" },
+      { "dutch": "Het gaat wel", "english": "I'm okay, so-so" },
+      { "dutch": "Met mij gaat het niet goed", "english": "I'm not feeling good" },
+      { "dutch": "Met mij gaat het slecht", "english": "I'm feeling really bad" },
+      { "dutch": "Vervelend om te horen", "english": "Sorry to hear / I feel for you" },
+      { "dutch": "Dankjewel/Dankuwel", "english": "Thank you (informal/formal)" },
+      { "dutch": "Waar is het station?", "english": "Where is the station?" },
+      { "dutch": "Alsjeblieft / Alstublieft", "english": "Please (informal/formal)" },
+      { "dutch": "Mag ik een vraag stellen?", "english": "May I ask you a question?" },
+      { "dutch": ["Wie ben jij?", "Hoe heet jij?", "Wat is jouw naam?"], "english": "What's your name?" },
+      { "dutch": "Begrijp je het?", "english": "Do you understand?" },
+      { "dutch": "Nee, ik begrijp het niet", "english": "I don’t understand." },
+      { "dutch": "Kan je dat herhalen?", "english": "Can you repeat that?" },
+      { "dutch": "Kan je langzaam praten?", "english": "Can you talk slowly?" },
+      { "dutch": "Wat zeg je?", "english": "What do you say?" },
+      { "dutch": "Ik heb een vraag", "english": "I have a question" },
+      { "dutch": "Ik heb geen vraag", "english": "I don't have a question" },
+      { "dutch": "Mag ik je wat vragen?", "english": "Can I ask you something?" },
+      { "dutch": "Ik spreek een beetje Nederlands", "english": "I speak a little Dutch" },
+      { "dutch": "En jij?", "english": "And you?" },
+      { "dutch": "Ik heb een goede dag", "english": "I'm having a good day" },
+      { "dutch": "Hoe laat is het?", "english": "What time is it?" },
+      { "dutch": "Welke dag is het vandaag?", "english": "What day is it today?" },
+      { "dutch": "Met mij gaat het (heel) goed, dankjewel", "english": "I'm feeling good, thank you" }
+    ],
+    "interview_phrases": [
+      { "dutch": "Kunt u mij iets vertellen over uzelf?", "english": "Can you tell me something about yourself?" },
+      { "dutch": "Wat zijn uw sterke punten?", "english": "What are your strengths?" },
+      { "dutch": "Wat zijn uw zwakke punten?", "english": "What are your weaknesses?" },
+      { "dutch": "Waarom wilt u deze functie?", "english": "Why do you want this position?" },
+      { "dutch": "Waar ziet u uzelf over vijf jaar?", "english": "Where do you see yourself in five years?" },
+      { "dutch": "Kunt u een voorbeeld geven?", "english": "Can you give an example?" }
+    ],
+    "professional_phrases": [
+      { "dutch": "Volgens mijn ervaring...", "english": "In my experience..." },
+      { "dutch": "Ik ben van mening dat...", "english": "I believe that..." },
+      { "dutch": "Het lijkt mij belangrijk om...", "english": "It seems important to me to..." },
+      { "dutch": "Ik zou graag willen voorstellen...", "english": "I would like to propose..." },
+      { "dutch": "Zullen we dit afstemmen?", "english": "Shall we align on this?" },
+      { "dutch": "Ik zal hierop terugkomen.", "english": "I will get back to you on this." }
+    ]
+  }
 }

@@ -45,9 +45,20 @@
     <button id="enter-btn">Enter</button>
 </div>
 
+<!-- Category Selector Section -->
+<div class="category-selection" style="display: none;">
+    <label for="category-selector">Select Phrase Category:</label>
+    <select id="category-selector"></select>
+</div>
+
 <!-- Start Game Button -->
 <button id="start-btn" style="display: none;">
     <i class="fas fa-play"></i> Start Game!
+</button>
+
+<!-- View Results Button -->
+<button id="view-results-btn" type="button" style="display: none; margin-top: 12px;">
+    <i class="fas fa-chart-column"></i> View results
 </button>
 
 <!-- Game Interface -->
@@ -71,8 +82,20 @@
     <!-- Result -->
     <div class="result"></div>
 
-    <!-- Score -->
-    <div>Score: <span id="score">0</span></div>
+    <!-- Progress / Resume-style indicator -->
+    <button id="round-progress-btn" type="button" style="display: none; margin-top: 10px;">
+        <i class="fas fa-circle-play"></i> Resume (1/1)
+    </button>
+
+    <!-- Game Controls -->
+    <div class="game-controls">
+        <button id="pause-btn" type="button">
+            <i class="fas fa-pause"></i> Pause
+        </button>
+        <button id="stop-btn" type="button">
+            <i class="fas fa-stop"></i> Stop
+        </button>
+    </div>
 
     <!-- Hear Phrase Button -->
     <button id="hear-phrase-btn">
@@ -81,6 +104,32 @@
 
     <!-- Next Button -->
     <button id="next-btn" style="display: none;">Next</button>
+
+    <!-- Play Again Button (shown on end screen) -->
+    <button id="play-again-btn" type="button" style="display: none; margin-top: 14px;">
+        <i class="fas fa-rotate-right"></i> Play again
+    </button>
+
+    <!-- Back Button (shown on results screen) -->
+    <button id="back-btn" type="button" style="display: none; margin-top: 12px;">
+        <i class="fas fa-arrow-left"></i> Back
+    </button>
+</div>
+
+<!-- Stop / Exit Modal -->
+<div id="stop-modal" class="modal" style="display: none;" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="stop-modal-title">
+        <div id="stop-modal-title" class="modal-title">Game paused</div>
+        <div class="modal-text">Do you want to continue, or end the game?</div>
+        <div class="modal-actions">
+            <button id="stop-back-btn" type="button">
+                <i class="fas fa-arrow-left"></i> Back to game
+            </button>
+            <button id="stop-end-btn" type="button">
+                <i class="fas fa-flag-checkered"></i> End game
+            </button>
+        </div>
+    </div>
 </div>
 
 <!-- External Script -->

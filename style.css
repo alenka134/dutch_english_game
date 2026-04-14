@@ -5,12 +5,14 @@ body {
     color: #ffffff;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 70px 12px 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
 }
 
 /* Logo Styling */
@@ -26,7 +28,7 @@ body {
 /* Heading */
 h1 {
     font-size: 3em;
-    margin: 10px 0 20px;
+    margin: 10px 0 18px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -56,8 +58,8 @@ button {
     color: #ffffff;
     background: linear-gradient(145deg, #1a73e8, #1453a8);
     border: none;
-    border-radius: 10px;
-    padding: 12px 20px;
+    border-radius: 14px;
+    padding: 12px 22px;
     cursor: pointer;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -3px -3px 7px rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease-in-out;
@@ -88,9 +90,341 @@ button:hover {
     margin-top: 20px;
 }
 
-.question {
-    font-size: 2em;
+.category-selection {
     margin: 20px 0;
+}
+
+.category-selection label {
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+
+.category-selection select {
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    outline: none;
+    backdrop-filter: blur(6px);
+}
+
+.collapsible select.leaderboard-category-select {
+    font-size: 0.95em;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    outline: none;
+}
+
+.collapsible select.leaderboard-category-select option {
+    color: #001a33;
+}
+
+.category-selection option {
+    color: #001a33;
+}
+
+.game-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 14px 0 18px; /* more vertical spacing before Hear Phrase */
+    flex-wrap: wrap;
+}
+
+.game-controls button,
+#play-again-btn,
+#view-results-btn,
+#back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px; /* icon ↔ text spacing */
+}
+
+.game-controls button,
+#hear-phrase-btn,
+#play-again-btn {
+    min-height: 44px; /* iOS-ish tap target */
+}
+
+.game-controls button i,
+#play-again-btn i,
+#hear-phrase-btn i,
+#view-results-btn i,
+#back-btn i {
+    margin-right: 2px;
+}
+
+#round-progress-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 44px;
+}
+
+/* View results pinned bottom-right */
+#view-results-btn {
+    position: fixed;
+    right: 16px;
+    top: 16px;
+    z-index: 1100;
+    margin-top: 0 !important;
+    border-radius: 999px;
+    padding: 12px 18px;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+}
+
+#pause-btn {
+    background: linear-gradient(145deg, #7b61ff, #4d3bd6);
+}
+
+#pause-btn:hover {
+    background: linear-gradient(145deg, #4d3bd6, #7b61ff);
+}
+
+#stop-btn {
+    background: linear-gradient(145deg, #ff4d4d, #c62828);
+}
+
+#stop-btn:hover {
+    background: linear-gradient(145deg, #c62828, #ff4d4d);
+}
+
+.scoreboard {
+    width: 92vw;
+    max-width: 740px;
+    margin: 18px auto 0;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+    font-size: 0.92em;
+}
+
+.scoreboard th,
+.scoreboard td {
+    padding: 12px 14px;
+    text-align: center;
+}
+
+.player-summary-table th:first-child,
+.player-summary-table td:first-child {
+    text-align: left;
+}
+
+.scoreboard th {
+    background: rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+}
+
+.scoreboard tr + tr td {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.scoreboard .muted {
+    opacity: 0.85;
+}
+
+.game-over-title {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #77ff66;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    font-size: 1.15em;
+    margin-top: 6px;
+}
+
+.section-title {
+    color: #77ff66;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+}
+
+.section-title i {
+    color: #77ff66;
+}
+
+.end-screen {
+    color: #ffffff;
+}
+
+.end-screen .top-result-lines {
+    font-size: 1.08em;
+}
+
+.end-screen .scoreboard {
+    font-size: 0.98em;
+}
+
+.end-screen .leaderboard-title {
+    font-size: 1.05em;
+}
+
+.top-result {
+    width: 92vw;
+    max-width: 740px;
+    margin: 14px auto 0;
+    padding: 14px 14px 12px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+.top-result-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.top-result-lines {
+    line-height: 1.55;
+    font-size: 0.98em;
+}
+
+.leaderboard-title {
+    width: 92vw;
+    max-width: 740px;
+    margin: 14px auto 0;
+    font-weight: 700;
+}
+
+.leaderboard-table .rank {
+    width: 44px;
+}
+
+.collapsible {
+    width: 92vw;
+    max-width: 740px;
+    margin: 12px auto 0;
+}
+
+.collapsible details {
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.collapsible summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-weight: 600;
+}
+
+.collapsible summary .chevron {
+    margin-left: 20px;
+    margin-right: 26px;
+    flex: 0 0 auto;
+}
+
+.collapsible summary::-webkit-details-marker {
+    display: none;
+}
+
+.collapsible .chevron {
+    transition: transform 0.2s ease;
+    opacity: 0.9;
+}
+
+.collapsible details[open] .chevron {
+    transform: rotate(180deg);
+}
+
+.collapsible .details-body {
+    padding: 0 12px 12px;
+}
+
+.lb-scroll-area {
+    max-height: 220px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.leaderboard-table {
+    width: 100%;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    z-index: 1000;
+}
+
+.modal-card {
+    width: min(520px, 92vw);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+}
+
+.modal-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.modal-text {
+    opacity: 0.95;
+    margin-bottom: 14px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+#stop-end-btn {
+    background: linear-gradient(145deg, #ff4d4d, #c62828);
+}
+
+#stop-end-btn:hover {
+    background: linear-gradient(145deg, #c62828, #ff4d4d);
+}
+
+.question {
+    font-size: 1.75em;
+    margin: 20px 0;
+}
+
+.question .instruction {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 400;
+    opacity: 0.78;
+    margin-bottom: 6px;
+}
+
+.question .prompt {
+    display: block;
+    font-size: 1em;
+    font-weight: 600;
+    opacity: 0.98;
 }
 
 /* Answer Buttons */
@@ -103,8 +437,12 @@ button:hover {
 
 /* Hear Phrase Button */
 #hear-phrase-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     padding: 12px 30px;
-    background: linear-gradient(145deg, #4f9a94, #47a9a0);
+    background: linear-gradient(145deg, #2bb3a7, #1f7f78);
     color: white;
     border: none;
     border-radius: 50px; /* Fully rounded */
@@ -117,7 +455,7 @@ button:hover {
 
 /* Button Hover Effect */
 #hear-phrase-btn:hover {
-    background: linear-gradient(145deg, #47a9a0, #4f9a94); /* Reverse gradient on hover */
+    background: linear-gradient(145deg, #1f7f78, #2bb3a7); /* Reverse gradient on hover */
     transform: translateY(-2px); /* Slight lift effect */
     box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3), -4px -4px 12px rgba(255, 255, 255, 0.3);
 }
