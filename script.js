@@ -1073,12 +1073,67 @@ roundProgressBtn?.addEventListener('click', () => {
   openStopModal();
 });
 
+// Prefer clearer Dutch voices when the browser exposes several (Chrome often has "Google … Nederlands").
+let cachedDutchVoice = null;
+
+function scoreDutchVoice(v) {
+  let s = 0;
+  const n = (v.name || '').toLowerCase();
+  const lang = (v.lang || '').toLowerCase();
+  if (lang === 'nl-nl' || lang === 'nl_nl') s += 15;
+  else if (lang.startsWith('nl')) s += 8;
+  if (n.includes('google')) s += 45;
+  if (n.includes('natural') || n.includes('neural') || n.includes('enhanced') || n.includes('premium')) s += 35;
+  if (n.includes('microsoft')) s += 28;
+  if (n.includes('samantha') || n.includes('xander')) s += 5; // macOS bundled names vary
+  if (v.default) s += 2;
+  return s;
+}
+
+function pickBestDutchVoice() {
+  try {
+    const voices = speechSynthesis.getVoices();
+    const dutch = voices.filter(
+      v =>
+        (v.lang && v.lang.toLowerCase().startsWith('nl')) ||
+        /dutch|nederlands/i.test(v.name || '')
+    );
+    if (!dutch.length) return null;
+    return [...dutch].sort((a, b) => scoreDutchVoice(b) - scoreDutchVoice(a))[0];
+  } catch {
+    return null;
+  }
+}
+
+function refreshDutchVoiceCache() {
+  cachedDutchVoice = pickBestDutchVoice();
+}
+
+if (typeof speechSynthesis !== 'undefined') {
+  refreshDutchVoiceCache();
+  if (typeof speechSynthesis.addEventListener === 'function') {
+    speechSynthesis.addEventListener('voiceschanged', refreshDutchVoiceCache);
+  } else {
+    speechSynthesis.onvoiceschanged = refreshDutchVoiceCache;
+  }
+}
+
 // Function to Play Phrase Using SpeechSynthesis API
 function playPhrase(phrase) {
-  const utterance = new SpeechSynthesisUtterance(phrase);
-  utterance.lang = 'nl-NL'; // Dutch language
-  utterance.rate = 0.8;      // Speed of speech
-  utterance.pitch = 1;       // Pitch of the voice
+  if (!phrase || !String(phrase).trim()) return;
+  speechSynthesis.cancel();
 
-  speechSynthesis.speak(utterance); // Speak the phrase
+  const utterance = new SpeechSynthesisUtterance(String(phrase).trim());
+  const voice = cachedDutchVoice || pickBestDutchVoice();
+  if (voice) {
+    utterance.voice = voice;
+    utterance.lang = voice.lang || 'nl-NL';
+  } else {
+    utterance.lang = 'nl-NL';
+  }
+  utterance.rate = 0.88;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+
+  speechSynthesis.speak(utterance);
 }
