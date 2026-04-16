@@ -3,6 +3,7 @@
 /workspace.xml
 
 # IDE / OS noise
+.cursor/
 /.idea/
 *.iml
 .DS_Store
