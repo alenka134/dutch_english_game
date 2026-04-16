@@ -198,8 +198,9 @@ button:hover {
 }
 
 .scoreboard {
-    width: 92vw;
-    max-width: 740px;
+    box-sizing: border-box;
+    /* Single width avoids WebKit ignoring max-width on table boxes (misaligned vs .top-result). */
+    width: min(92vw, 740px);
     margin: 18px auto 0;
     border-collapse: collapse;
     background: rgba(255, 255, 255, 0.12);
@@ -268,8 +269,8 @@ button:hover {
 }
 
 .top-result {
-    width: 92vw;
-    max-width: 740px;
+    box-sizing: border-box;
+    width: min(92vw, 740px);
     margin: 14px auto 0;
     padding: 14px 14px 12px;
     background: rgba(255, 255, 255, 0.14);
@@ -289,8 +290,7 @@ button:hover {
 }
 
 .leaderboard-title {
-    width: 92vw;
-    max-width: 740px;
+    width: min(92vw, 740px);
     margin: 14px auto 0;
     font-weight: 700;
 }
@@ -300,8 +300,7 @@ button:hover {
 }
 
 .collapsible {
-    width: 92vw;
-    max-width: 740px;
+    width: min(92vw, 740px);
     margin: 12px auto 0;
 }
 
