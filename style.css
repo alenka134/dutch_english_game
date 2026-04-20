@@ -5,7 +5,7 @@ body {
     color: #ffffff;
     text-align: center;
     margin: 0;
-    padding: 70px 12px 30px;
+    padding: 70px 12px 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -13,16 +13,232 @@ body {
     min-height: 100vh;
     height: auto;
     overflow-y: auto;
+    box-sizing: border-box;
 }
 
-/* Logo Styling */
-.logo {
+/* Main column: grows so footer sits at viewport bottom; bottom padding separates game/results from footer */
+.page-stack {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding-bottom: clamp(2.5rem, 8vh, 5rem);
+}
+
+/* --- Site footer: minimal icon strip (game HUD, not marketing buttons) --- */
+.site-footer {
+    margin-top: 0;
+    flex-shrink: 0;
+    margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    width: min(92vw, 740px);
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+}
+
+.site-footer__nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 10px;
+    width: min(100%, 22rem);
+    margin: 0 auto;
+    overflow: visible;
+}
+
+/* Footer icon links — same 3D / glossy treatment as Enter & primary buttons */
+.site-footer__link {
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    color: #ffffff;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 12px;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 44px;
+    box-sizing: border-box;
+    line-height: 1;
+    cursor: pointer;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #1a73e8, #1453a8);
+    box-shadow:
+        5px 5px 10px rgba(0, 0, 0, 0.2),
+        -3px -3px 7px rgba(255, 255, 255, 0.1);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+/* Custom tooltip (native title cannot be styled) */
+.site-footer__link[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    padding: 8px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.03em;
+    color: #ffffff;
+    background: rgba(0, 34, 102, 0.96);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    white-space: normal;
+    max-width: min(260px, 88vw);
+    text-align: center;
+    line-height: 1.35;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    z-index: 200;
+}
+
+.site-footer__link[data-tooltip]:hover::after,
+.site-footer__link[data-tooltip]:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.site-footer__link:hover {
+    background: linear-gradient(145deg, #1453a8, #1a73e8);
+    transform: translateY(-2px);
+    box-shadow:
+        6px 6px 12px rgba(0, 0, 0, 0.3),
+        -3px -3px 8px rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* Pressed / click: darker fill + inset depth (clear feedback before navigation) */
+.site-footer__link:active {
+    transform: translateY(1px);
+    background: linear-gradient(145deg, #0c3d7a, #082a54);
+    color: rgba(255, 255, 255, 0.92);
+    box-shadow:
+        inset 0 3px 10px rgba(0, 0, 0, 0.38),
+        0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-footer__link,
+    .site-footer__link[data-tooltip]::after {
+        transition-duration: 0.01ms;
+    }
+}
+
+.site-footer__link:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 3px;
+    color: #ffffff;
+}
+
+.site-footer__icon {
+    font-size: 1.05rem;
+    pointer-events: none;
+    color: inherit;
+}
+
+.site-footer__icon--emoji {
+    font-size: 1.15rem;
+    line-height: 1;
+    display: inline-block;
+}
+
+.site-footer__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* Larger star only — label text size unchanged */
+.site-footer__star {
+    font-size: 1.55em;
+    line-height: 1;
+    display: inline-block;
+    transform: translateY(-0.04em);
+}
+
+.site-footer__label-text {
+    font-size: 1em;
+    line-height: 1;
+}
+
+/* Keep floating result mascot above footer + safe area */
+@media (max-width: 600px) {
+    .result-image {
+        bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* Logo: smaller, rounded, soft “cloud” halo (fits blue gradient page) */
+.logo-container {
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 105px;
-    height: auto;
     z-index: 101;
+    line-height: 0;
+    padding: 5px;
+    border-radius: 18px;
+    background: radial-gradient(
+        130% 110% at 50% 0%,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.14) 42%,
+        rgba(255, 255, 255, 0.05) 68%,
+        transparent 88%
+    );
+    box-shadow:
+        0 12px 32px rgba(0, 45, 110, 0.42),
+        0 4px 18px rgba(255, 255, 255, 0.22),
+        inset 0 1px 2px rgba(255, 255, 255, 0.55);
+    filter: drop-shadow(0 5px 14px rgba(0, 40, 95, 0.38));
+}
+
+.logo-container .logo {
+    display: block;
+    width: 72px;
+    max-width: min(72px, 20vw);
+    height: auto;
+    border-radius: 14px;
+    object-fit: contain;
+    box-shadow:
+        0 4px 16px rgba(0, 30, 80, 0.38),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+/* Extra air above footer on end / results flows */
+.game #play-again-btn,
+.game #back-btn {
+    margin-bottom: clamp(0.85rem, 3vw, 1.35rem);
+}
+
+.result.end-screen {
+    margin-bottom: clamp(1rem, 3.5vw, 1.75rem);
+}
+
+.game .collapsible:last-of-type {
+    margin-bottom: clamp(0.85rem, 2.5vw, 1.35rem);
 }
 
 /* Heading */
@@ -482,7 +698,7 @@ button:hover {
 /* Result Image */
 .result-image {
     position: fixed;
-    bottom: 20px;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
     right: 20px;
     width: 230px;
     height: auto;
